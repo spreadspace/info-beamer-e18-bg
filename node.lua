@@ -1,10 +1,8 @@
 gl.setup(NATIVE_WIDTH, NATIVE_HEIGHT)
 
--- sys.set_flag("slow_gc")
-
 util.resource_loader{
-    "shaderE18.frag",
     "bgcolor.png",
+    "shaderE18.frag",
 }
 
 function node.render()

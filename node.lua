@@ -10,7 +10,7 @@ function node.render()
 
     shaderE18:use{
        iTime = now,
-       iResolution = {NATIVE_WIDTH, NATIVE_HEIGHT}
+       iResolution = {NATIVE_WIDTH, NATIVE_HEIGHT, 0.0}
     }
 
     bgcolor:draw(0, 0, NATIVE_WIDTH, NATIVE_HEIGHT)

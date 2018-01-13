@@ -3,7 +3,7 @@
 
 varying vec2 TexCoord;
 uniform float iTime;
-uniform vec2 iResolution;
+uniform vec3 iResolution;
 
 // ************************************************
 // * config parameter

@@ -1,13 +1,21 @@
+// ************************************************
+// * inputs from node.lua
+
 varying vec2 TexCoord;
 uniform float time;
 uniform float res_x;
 uniform float res_y;
 
-const float queru_size = 0.1;
+// ************************************************
+// * config parameter
+
+const float queru_size = 0.12;
 const float queru_rotspeed = 3.0;
 const vec2 queru_basepos = vec2(0.5, 0.5);
 const vec3 YELLOW = vec3(1.0, 0.913, 0.141);
 
+// ************************************************
+// * helper functions
 
 float aspect() {
   return res_x / res_y;
@@ -37,6 +45,7 @@ float chaos(float x)
   return (exp(sin(t.x))*exp(cos(t.y))*sin(t.z));
 }
 
+
 float rect(vec2 uv, vec2 sz) {
   vec2 limx = vec2(-sz.x, +sz.x);
   vec2 limy = vec2(-sz.y, +sz.y);
@@ -48,6 +57,9 @@ float rect(vec2 uv, vec2 sz) {
   float factor = 1.0 - 0.42 * (error / pixelsize().y);
   return clamp(factor, 0.0, 1.0);
 }
+
+// ************************************************
+// * the "querulant"
 
 vec2 queru_pos() {
   float x = chaos(3.1415 * time);
@@ -61,6 +73,9 @@ void querulant(inout vec3 c, vec3 k) {
   c = mix(c, YELLOW, rect(qq.xy, sz));
 }
 
+// ************************************************
+// * main
+
 void main() {
   vec2 uv = TexCoord;
   vec3 c = vec3(0.0);
@@ -73,3 +88,5 @@ void main() {
 
   gl_FragColor = vec4(c, 1.0);
 }
+
+// ************************************************

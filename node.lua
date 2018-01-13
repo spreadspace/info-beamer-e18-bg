@@ -9,7 +9,8 @@ function node.render()
     local now = sys.now()
 
     shaderE18:use{
-        time = now;
+       time = now,
+       sar = NATIVE_WIDTH/NATIVE_HEIGHT,
     }
 
     bgcolor:draw(0, 0, NATIVE_WIDTH, NATIVE_HEIGHT)

@@ -2,9 +2,8 @@
 // * inputs from node.lua
 
 varying vec2 TexCoord;
-uniform float time;
-uniform float res_x;
-uniform float res_y;
+uniform float iTime;
+uniform vec2 iResolution;
 
 // ************************************************
 // * config parameter
@@ -18,11 +17,11 @@ const vec3 YELLOW = vec3(1.0, 0.913, 0.141);
 // * helper functions
 
 float aspect() {
-  return res_x / res_y;
+  return iResolution.x / iResolution.y;
 }
 
 vec2 pixelsize() {
-  return 1.0 / vec2(res_x, res_y);
+  return 1.0 / vec2(iResolution.x, iResolution.y);
 }
 
 mat3 rm(float a) {
@@ -62,14 +61,14 @@ float rect(vec2 uv, vec2 sz) {
 // * the "querulant"
 
 vec2 queru_pos() {
-  float x = chaos(3.1415 * time);
-  float y = chaos(-1.3 * time);
+  float x = chaos(3.1415 * iTime);
+  float y = chaos(-1.3 * iTime);
   return queru_basepos + 0.5 * vec2(x, y);
 }
 
 void querulant(inout vec3 c, vec3 k) {
   vec2 sz = vec2(queru_size);
-  vec3 qq = k * tm(queru_pos()) * rm(time*queru_rotspeed);
+  vec3 qq = k * tm(queru_pos()) * rm(iTime*queru_rotspeed);
   c = mix(c, YELLOW, rect(qq.xy, sz));
 }
 
@@ -82,7 +81,7 @@ void main() {
 
   // normalize (0..1) to (-1..1), with (0, 0) in the center
   vec3 nuv = vec3((uv - 0.5)*2.0, 1.0);
-  nuv.x *= res_x/res_y;
+  nuv.x *= iResolution.x/iResolution.y;
 
   querulant(c, nuv);
 

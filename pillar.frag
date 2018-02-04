@@ -31,6 +31,6 @@ void main()
     uv.x += rowspeed(uv.y) * time;              // move rows
     uv = mod(uv * TEX_REPEAT_FACTOR, 1.0);      // repeat texture
 
-    vec3 c = texture2DLod(Texture, uv, 0).rgb;
+    vec3 c = texture2D(Texture, uv).rgb;
     gl_FragColor = vec4(c, ALPHA);
 }

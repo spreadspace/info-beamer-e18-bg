@@ -24,8 +24,6 @@ local QMOVESCALE = 0.20
 local PILLAR_TOP_GRANULARITY = 0.03   -- top looks better with larger rows (smaller model scale!)
 local PILLAR_SIDE_GRANULARITY = 0.002 -- sides are better with smaller rows
 
-res.yellow = resource.create_colored_texture(1.0, 0.913, 0.141)
-
 ---------------------------------
 
 gl.setup(NATIVE_WIDTH, NATIVE_HEIGHT)
@@ -52,7 +50,7 @@ local function drawqueru(now)
         gl.translate(queruPos(now))
         rotate1(now, 0, 0, 1)
         gl.translate(QSIZE/-2, QSIZE/-2) -- center rotation point
-        res.yellow:draw(0,0,QSIZE,QSIZE)
+        res.bgcolor:draw(0,0,QSIZE,QSIZE)
     POP()
 end
 
@@ -124,6 +122,8 @@ end
 
 
 function node.render()
+    res.bgcolor:draw(0, 0, WIDTH, HEIGHT)
+
     local aspect = WIDTH / HEIGHT
     local now = sys.now()
 

@@ -1,6 +1,8 @@
 NATIVE_WIDTH = NATIVE_WIDTH or 1280
 NATIVE_HEIGHT = NATIVE_HEIGHT or 720
 
+sys.set_flag("no_clear")
+
 local max = math.max
 local min = math.min
 local cos = math.cos

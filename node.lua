@@ -115,10 +115,10 @@ local function lolpillar(tex, now, xo, yo, twist)
     local onow = now + xo
     local s, s2, c = sin(onow), sin(onow*0.5), cos(onow*0.66)
     local sslow = sin(now*0.2 + xo*2)
-    local stw = c*0.03 + twist + 0.03*sin(now*0.13 + 5*xo)
+    local stw = cos(onow*0.66 + xo*3.3)*0.03 + twist + 0.03*sin(now*0.13 + 5*xo)
     PUSH()
         gl.translate(xo, yo, 0)
-        gl.translate(0, 0.1*sslow + 0.22 + 0.043*chaos((now+(10*yo))*0.4), 0)
+        gl.translate(0, 0.06*sslow + 0.27 + 0.031*chaos((now+(10*yo))*0.4), 0)
         rotate1(-0.05, 0, 0, 1)       -- tilt left/right / roll
         rotate1(0.01*c-0.1, -1, 1, 0) -- tilt to viewer / pitch
         rotate1(stw, 0, 1, 0)  -- twist / yaw
@@ -135,24 +135,24 @@ local function drawpillars(now)
     --lolpillar(res.noise6, now,  0.4,   -0.12,  0.33)
     lolpillar(res.noise1, now,  0.3,   0.08,  0.2)
     --lolpillar(res.noise, now,  0.0,   -0.05,  0.5)
-    lolpillar(res.noise5, now, -0.25,   0.15,  0.17)
+    lolpillar(res.noise3, now, -0.28,   0.35,  0.47)
     lolpillar(res.noise2, now,  0.1,  0.2,   0.3)
-    lolpillar(res.noise1, now,  0.03,  0.3,   0.2)
-    lolpillar(res.noise5, now,  0.18,   0.6,  0.17)
+    lolpillar(res.noise, now,  0.78,  0.1,   0.2)
+    lolpillar(res.noise5, now,  0.26,   0.6,  0.17)
 
     lolpillar(res.noise3, now,  0.63,   0.3,   0.25)
     --lolpillar(res.noise4, now,  0.7,   0.15,  0.15)
     --lolpillar(res.noise7, now, -0.15,  0.45,  0.13)
     --lolpillar(res.noise8a, now,  0.8,   0.3,  0.22)
-    lolpillar(res.noise1, now,  0.42,   0.5,  0.42)
+    --lolpillar(res.noise1, now,  0.42,   0.5,  0.42)
 
 
 
     local slownow = 0.3*now
 
-    --stripe(res.noise8a, -0.05, -0.43, 0.3, 0, 0.03*sin(slownow))
-    stripe(res.noise8a, -0.05, -0.53, 0.35, 0, 0.03*sin(slownow+0.7))
-    stripe(res.noise8a, -0.05, -0.73, 0.4, 0, 0.03*sin(slownow+1.4))
+    stripe(res.noise8a, -0.05, -0.25, 0.3, 0, 0.03*sin(slownow))
+    stripe(res.noise8a, -0.05, -0.45, 0.5, 0, 0.03*sin(slownow+0.7))
+    stripe(res.noise8a, -0.05, -0.65, 0.7, 0, 0.03*sin(slownow+1.4))
 
     stripe(res.noise8a, -0.05, 0.28, 0.3, 0, 0.03*sin(slownow))
     stripe(res.noise8a, -0.05, 0.48, 0.35, 0, 0.03*sin(slownow+0.7))

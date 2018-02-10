@@ -117,21 +117,6 @@ end
 local function drawpillars(now)
 
     PUSH()
-        gl.translate(-0.6, 0.5, 0)
-        lolpillar(now, 0)
-    POP()
-
-    PUSH()
-        gl.translate(-0.42, 0.4, 0)
-        lolpillar(now+1, 0)
-    POP()
-
-    PUSH()
-        gl.translate(-0.17, 0.4, 0)
-        lolpillar(now+2, 0)
-    POP()
-
-    PUSH()
         gl.translate(0.03, 0.3, 0)
         lolpillar(now+3, 0)
     POP()

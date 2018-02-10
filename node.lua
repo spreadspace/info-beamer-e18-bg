@@ -75,7 +75,7 @@ end
 
 local function drawpillar(params)
     PUSH()
-        gl.scale(0.1, 0.5, 0.1)
+    gl.scale(0.13, 0.5, 0.13)
 
         PUSH() -- top
             rotate1(0.5, 0, 1, 0)
@@ -105,7 +105,7 @@ local function lolpillar(now, seed)
     local params = {time=now, randseed = seed}
     local s, s2, c = sin(now), sin(now*0.5), cos(now*0.66)
     PUSH()
-        rotate1(0.1*c, 0, 0, 1)       -- tilt left/right / roll
+--        rotate1(0.1*c, 0, 0, 1)       -- tilt left/right / roll
         rotate1(0.05*c+0.1, -1, 1, 0) -- tilt to viewer / pitch
         rotate1(0.1*s2+0.2, 0, 1, 0)  -- twist / yaw
         local ss = s * 0.2 + 1.5
@@ -117,17 +117,38 @@ end
 local function drawpillars(now)
 
     PUSH()
-        gl.translate(-0.2, 0, 0)
+        gl.translate(-0.6, 0.5, 0)
         lolpillar(now, 0)
     POP()
 
     PUSH()
-        lolpillar(now + 1, 0)
+        gl.translate(-0.42, 0.4, 0)
+        lolpillar(now+1, 0)
     POP()
 
     PUSH()
-        gl.translate(0.2, 0, 0)
-        lolpillar(now + 2, 1)
+        gl.translate(-0.17, 0.4, 0)
+        lolpillar(now+2, 0)
+    POP()
+
+    PUSH()
+        gl.translate(0.03, 0.3, 0)
+        lolpillar(now+3, 0)
+    POP()
+
+    PUSH()
+        gl.translate(0.32, 0.2, 0)
+        lolpillar(now+4, 1)
+    POP()
+
+    PUSH()
+        gl.translate(0.5, 0.1, 0)
+        lolpillar(now+5, 1)
+    POP()
+
+    PUSH()
+        gl.translate(0.7, 0.05, 0)
+        lolpillar(now+5, 1)
     POP()
 
     res.pillar:deactivate()

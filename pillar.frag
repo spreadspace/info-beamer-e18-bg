@@ -22,7 +22,7 @@ float randbase(vec2 n) {
 #ifdef INFOBEAMER_PLAT_PI
     return texture2D(Noise, n).r;
 #else
-    return texture2DLod(Texture, n, 0).r;
+    return texture2DLod(Noise, n, 0).r;
 #endif
 }
 float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }

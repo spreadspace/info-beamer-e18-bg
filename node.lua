@@ -76,12 +76,14 @@ local function drawpillar(tex)
     PUSH()
     gl.scale(0.13, 0.5, 0.13)
 
+        --[[
         PUSH() -- top
             rotate1(0.5, 0, 1, 0)
             rotate1(0.5, 1, 0, 0)
             gl.translate(0, 0, 0.5) -- -0.5 to draw bottom
             drawside(tex)
         POP()
+        ]]
 
         PUSH() -- front
             gl.scale(-1, 1, 1) -- this makes sure the textures line up and corner transition goes nicely

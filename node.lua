@@ -74,7 +74,7 @@ end
 
 local function drawpillar(tex)
     PUSH()
-    gl.scale(0.13, 0.5, 0.13)
+    gl.scale(0.13, 0.8, 0.13)
 
         --[[
         PUSH() -- top
@@ -99,46 +99,64 @@ local function drawpillar(tex)
     POP()
 end
 
--- test function to try good looking rotation parameters...
-local function lolpillar(tex, now, seed)
-    local s, s2, c = sin(now), sin(now*0.5), cos(now*0.66)
+local function stripe(tex, rot, cx, cy, ox, oy, sx, sy)
     PUSH()
---        rotate1(0.1*c, 0, 0, 1)       -- tilt left/right / roll
-        rotate1(0.05*c+0.1, -1, 1, 0) -- tilt to viewer / pitch
-        rotate1(0.1*s2+0.2, 0, 1, 0)  -- twist / yaw
-        local ss = s * 0.2 + 1.5
+        gl.translate(cx, cy)
+        rotate1(rot, 0, 0, 1)
+        gl.translate(ox, oy)
+        gl.scale(sx or 0.13, sy or 0.5)
+        drawside(tex, 0.5, 0, 1, 1)  -- second half of X-axis UV-coord space
+    POP()
+end
+
+-- test function to try good looking rotation parameters...
+local function lolpillar(tex, now, xo, yo, twist)
+    twist = twist or 0.2
+    local onow = now + xo
+    local s, s2, c = sin(onow), sin(onow*0.5), cos(onow*0.66)
+    local sslow = sin(now*0.2 + xo*2)
+    local stw = c*0.03 + twist + 0.03*sin(now*0.13 + 5*xo)
+    PUSH()
+        gl.translate(xo, yo, 0)
+        gl.translate(0, 0.15*sslow + 0.22 + 0.033*chaos((now+(10*yo))*0.4), 0)
+        rotate1(-0.05, 0, 0, 1)       -- tilt left/right / roll
+        rotate1(0.01*c-0.1, -1, 1, 0) -- tilt to viewer / pitch
+        rotate1(stw, 0, 1, 0)  -- twist / yaw
+        local ss = s * 0.01 + 1.5
         gl.scale(ss, ss, ss)
-        drawpillar(tex, params)
+        drawpillar(tex)
     POP()
 end
 
 local function drawpillars(now)
     res.pillar:use{time=now, randseed = seed, Noise=res.noise512}
 
-    PUSH()
-        gl.translate(-0.1, 0.05, 0)
-        lolpillar(res.noise5, now+5, 1)
-    POP()
+    lolpillar(res.noise, now,  -0.2,   0.6,  0.33)
+    lolpillar(res.noise6, now,  0.5,   -0.12,  0.33)
+    lolpillar(res.noise1, now,  0.6,   -0.08,  0.2)
+    lolpillar(res.noise8, now,  0.2,   -0.05,  0.5)
+    lolpillar(res.noise5, now, -0.1,   0.15,  0.17)
+    lolpillar(res.noise1, now,  0.03,  0.3,   0.2)
+    lolpillar(res.noise4, now,  0.22,   0.6,  0.17)
+    lolpillar(res.noise2, now,  0.32,  0.2,   0.3)
+    lolpillar(res.noise3, now,  0.5,   0.1,   0.25)
+    lolpillar(res.noise4, now,  0.7,   0.15,  0.15)
+    lolpillar(res.noise7, now, -0.05,  0.45,  0.13)
+    lolpillar(res.noise8, now,  0.9,   0.3,  0.22)
+    lolpillar(res.noise1, now,  0.42,   0.5,  0.42)
 
-    PUSH()
-        gl.translate(0.03, 0.3, 0)
-        lolpillar(res.noise1, now+3, 0)
-    POP()
 
-    PUSH()
-        gl.translate(0.32, 0.2, 0)
-        lolpillar(res.noise2, now+4, 1)
-    POP()
 
-    PUSH()
-        gl.translate(0.5, 0.1, 0)
-        lolpillar(res.noise3, now+5, 1)
-    POP()
+    local slownow = 0.3*now
 
-    PUSH()
-        gl.translate(0.7, 0.05, 0)
-        lolpillar(res.noise4, now+5, 1)
-    POP()
+    stripe(res.noise8a, -0.05, -0.3, 0.4, 0, 0.03*sin(slownow))
+    stripe(res.noise8a, -0.05, -0.5, 0.4, 0, 0.03*sin(slownow+0.7))
+    stripe(res.noise8a, -0.05, -0.7, 0.4, 0, 0.03*sin(slownow+1.4))
+
+    stripe(res.noise8a, -0.05, 0.28, 0.3, 0, 0.03*sin(slownow))
+    stripe(res.noise8a, -0.05, 0.48, 0.35, 0, 0.03*sin(slownow+0.7))
+    stripe(res.noise8a, -0.05, 0.68, 0.4, 0, 0.03*sin(slownow+1.4))
+
 
     res.pillar:deactivate()
 end

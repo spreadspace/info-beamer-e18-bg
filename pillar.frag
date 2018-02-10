@@ -5,14 +5,12 @@ uniform vec4 Color;
 
 // custom
 uniform float time;
-uniform float randseed;
 uniform float granularity; // 0.002 is a good value, higher = more pixelly
 
 // -- config --
 const float ROW_SPEED_MULT = 0.1;
 const float GRANULARITY  = 0.002;
 const vec2 TEX_REPEAT_FACTOR = vec2(0.5, 1.0); // < 1 looks smeary, 1-2 looks nice
-const float ALPHA = 1.0; // 0.3 is good for debugging
 
 // --------------------
 
@@ -27,20 +25,19 @@ float randbase(vec2 n) {
 }
 float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }
 float rand  (vec2 n) { return randbase(n) * 2.0 - 1.0; }
-float rowspeed(float y) { return ROW_SPEED_MULT * rand(vec2(randseed, y)); }
+float rowspeed(float y) { return ROW_SPEED_MULT * rand(vec2(0.0, y)); }
 
 void main()
 {
     vec2 uv = TexCoord;
-    uv.x += rand01(vec2(randseed, 0.0));
     uv.y -= mod(uv.y, GRANULARITY);         // pixellate rows
     uv.x += rowspeed(uv.y) * time;              // move rows
     uv = mod(uv * TEX_REPEAT_FACTOR, 1.0);      // repeat texture
 
 #ifdef INFOBEAMER_PLAT_PI
-    vec3 c = texture2D(Texture, uv).rgb;
+    vec4 c = texture2D(Texture, uv);
 #else
-    vec3 c = texture2DLod(Texture, uv, 0).rgb;
+    vec4 c = texture2DLod(Texture, uv, 0);
 #endif
-    gl_FragColor = vec4(c, ALPHA);
+    gl_FragColor = c;
 }

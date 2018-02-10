@@ -74,7 +74,7 @@ end
 
 local function drawpillar(tex)
     PUSH()
-    gl.scale(0.13, 0.8, 0.13)
+    gl.scale(0.18, 0.8, 0.18)
 
         --[[
         PUSH() -- top
@@ -118,7 +118,7 @@ local function lolpillar(tex, now, xo, yo, twist)
     local stw = c*0.03 + twist + 0.03*sin(now*0.13 + 5*xo)
     PUSH()
         gl.translate(xo, yo, 0)
-        gl.translate(0, 0.15*sslow + 0.22 + 0.033*chaos((now+(10*yo))*0.4), 0)
+        gl.translate(0, 0.1*sslow + 0.22 + 0.043*chaos((now+(10*yo))*0.4), 0)
         rotate1(-0.05, 0, 0, 1)       -- tilt left/right / roll
         rotate1(0.01*c-0.1, -1, 1, 0) -- tilt to viewer / pitch
         rotate1(stw, 0, 1, 0)  -- twist / yaw
@@ -131,27 +131,28 @@ end
 local function drawpillars(now)
     res.pillar:use{time=now, randseed = seed, Noise=res.noise512}
 
-    lolpillar(res.noise, now,  -0.2,   0.6,  0.33)
-    lolpillar(res.noise6, now,  0.5,   -0.12,  0.33)
-    lolpillar(res.noise1, now,  0.6,   -0.08,  0.2)
-    lolpillar(res.noise8, now,  0.2,   -0.05,  0.5)
-    lolpillar(res.noise5, now, -0.1,   0.15,  0.17)
+    lolpillar(res.noise, now,  -0.45,   0.6,  0.33)
+    --lolpillar(res.noise6, now,  0.4,   -0.12,  0.33)
+    lolpillar(res.noise1, now,  0.3,   0.08,  0.2)
+    --lolpillar(res.noise, now,  0.0,   -0.05,  0.5)
+    lolpillar(res.noise5, now, -0.25,   0.15,  0.17)
+    lolpillar(res.noise2, now,  0.1,  0.2,   0.3)
     lolpillar(res.noise1, now,  0.03,  0.3,   0.2)
-    lolpillar(res.noise4, now,  0.22,   0.6,  0.17)
-    lolpillar(res.noise2, now,  0.32,  0.2,   0.3)
-    lolpillar(res.noise3, now,  0.5,   0.1,   0.25)
-    lolpillar(res.noise4, now,  0.7,   0.15,  0.15)
-    lolpillar(res.noise7, now, -0.05,  0.45,  0.13)
-    lolpillar(res.noise8, now,  0.9,   0.3,  0.22)
+    lolpillar(res.noise5, now,  0.18,   0.6,  0.17)
+
+    lolpillar(res.noise3, now,  0.63,   0.3,   0.25)
+    --lolpillar(res.noise4, now,  0.7,   0.15,  0.15)
+    --lolpillar(res.noise7, now, -0.15,  0.45,  0.13)
+    --lolpillar(res.noise8a, now,  0.8,   0.3,  0.22)
     lolpillar(res.noise1, now,  0.42,   0.5,  0.42)
 
 
 
     local slownow = 0.3*now
 
-    stripe(res.noise8a, -0.05, -0.3, 0.4, 0, 0.03*sin(slownow))
-    stripe(res.noise8a, -0.05, -0.5, 0.4, 0, 0.03*sin(slownow+0.7))
-    stripe(res.noise8a, -0.05, -0.7, 0.4, 0, 0.03*sin(slownow+1.4))
+    --stripe(res.noise8a, -0.05, -0.43, 0.3, 0, 0.03*sin(slownow))
+    stripe(res.noise8a, -0.05, -0.53, 0.35, 0, 0.03*sin(slownow+0.7))
+    stripe(res.noise8a, -0.05, -0.73, 0.4, 0, 0.03*sin(slownow+1.4))
 
     stripe(res.noise8a, -0.05, 0.28, 0.3, 0, 0.03*sin(slownow))
     stripe(res.noise8a, -0.05, 0.48, 0.35, 0, 0.03*sin(slownow+0.7))

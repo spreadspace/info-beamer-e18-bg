@@ -138,7 +138,7 @@ local function drawpillars(now)
     lolpillar(res.noise3, now, -0.28,   0.35,  0.47)
     lolpillar(res.noise2, now,  0.1,  0.2,   0.3)
     lolpillar(res.noise, now,  0.78,  0.1,   0.2)
-    lolpillar(res.noise5, now,  0.26,   0.6,  0.17)
+    lolpillar(res.noise5d, now,  0.26,   0.6,  0.17)
 
     lolpillar(res.noise3, now,  0.63,   0.3,   0.25)
     --lolpillar(res.noise4, now,  0.7,   0.15,  0.15)

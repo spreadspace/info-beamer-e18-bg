@@ -10,6 +10,7 @@ uniform float granularity; // 0.002 is a good value, higher = more pixelly
 
 // -- config --
 const float ROW_SPEED_MULT = 0.1;
+const float GRANULARITY  = 0.002;
 const vec2 TEX_REPEAT_FACTOR = vec2(0.5, 1.0); // < 1 looks smeary, 1-2 looks nice
 const float ALPHA = 1.0; // 0.3 is good for debugging
 
@@ -32,14 +33,14 @@ void main()
 {
     vec2 uv = TexCoord;
     uv.x += rand01(vec2(randseed, 0.0));
-    uv.y -= mod(uv.y, granularity);         // pixellate rows
+    uv.y -= mod(uv.y, GRANULARITY);         // pixellate rows
     uv.x += rowspeed(uv.y) * time;              // move rows
     uv = mod(uv * TEX_REPEAT_FACTOR, 1.0);      // repeat texture
 
 #ifdef INFOBEAMER_PLAT_PI
     vec3 c = texture2D(Texture, uv).rgb;
 #else
-    vec3 c = texture2DLod(Texture, uv, 0);
+    vec3 c = texture2DLod(Texture, uv, 0).rgb;
 #endif
     gl_FragColor = vec4(c, ALPHA);
 }

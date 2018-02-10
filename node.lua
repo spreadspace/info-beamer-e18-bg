@@ -67,13 +67,12 @@ local function drawqueru(now)
     POP()
 end
 
-local function drawside(params, ...)
-    res.pillar:use(params)
-    res.noise:draw(-0.5,-0.5,0.5,0.5,1, ...)
+local function drawside(tex, ...)
+    tex:draw(-0.5,-0.5,0.5,0.5,1, ...)
 end
 
 
-local function drawpillar(params)
+local function drawpillar(tex)
     PUSH()
     gl.scale(0.13, 0.5, 0.13)
 
@@ -81,28 +80,25 @@ local function drawpillar(params)
             rotate1(0.5, 0, 1, 0)
             rotate1(0.5, 1, 0, 0)
             gl.translate(0, 0, 0.5) -- -0.5 to draw bottom
-            params.granularity = PILLAR_TOP_GRANULARITY
-            drawside(params)
+            drawside(tex)
         POP()
 
-        params.granularity = PILLAR_SIDE_GRANULARITY
         PUSH() -- front
             gl.scale(-1, 1, 1) -- this makes sure the textures line up and corner transition goes nicely
             gl.translate(0, 0, 0.5)
-            drawside(params, 0, 0, 0.5, 1) -- first half of X-axis UV-coord space
+            drawside(tex, 0, 0, 0.5, 1) -- first half of X-axis UV-coord space
         POP()
 
         PUSH() -- side
             rotate1(0.5, 0, 1, 0)
             gl.translate(0, 0, -0.5)
-            drawside(params, 0.5, 0, 1, 1)  -- second half of X-axis UV-coord space
+            drawside(tex, 0.5, 0, 1, 1)  -- second half of X-axis UV-coord space
         POP()
     POP()
 end
 
 -- test function to try good looking rotation parameters...
-local function lolpillar(now, seed)
-    local params = {time=now, randseed = seed, Noise=res.noise512}
+local function lolpillar(tex, now, seed)
     local s, s2, c = sin(now), sin(now*0.5), cos(now*0.66)
     PUSH()
 --        rotate1(0.1*c, 0, 0, 1)       -- tilt left/right / roll
@@ -110,30 +106,36 @@ local function lolpillar(now, seed)
         rotate1(0.1*s2+0.2, 0, 1, 0)  -- twist / yaw
         local ss = s * 0.2 + 1.5
         gl.scale(ss, ss, ss)
-        drawpillar(params)
+        drawpillar(tex, params)
     POP()
 end
 
 local function drawpillars(now)
+    res.pillar:use{time=now, randseed = seed, Noise=res.noise512}
+
+    PUSH()
+        gl.translate(-0.1, 0.05, 0)
+        lolpillar(res.noise5, now+5, 1)
+    POP()
 
     PUSH()
         gl.translate(0.03, 0.3, 0)
-        lolpillar(now+3, 0)
+        lolpillar(res.noise1, now+3, 0)
     POP()
 
     PUSH()
         gl.translate(0.32, 0.2, 0)
-        lolpillar(now+4, 1)
+        lolpillar(res.noise2, now+4, 1)
     POP()
 
     PUSH()
         gl.translate(0.5, 0.1, 0)
-        lolpillar(now+5, 1)
+        lolpillar(res.noise3, now+5, 1)
     POP()
 
     PUSH()
         gl.translate(0.7, 0.05, 0)
-        lolpillar(now+5, 1)
+        lolpillar(res.noise4, now+5, 1)
     POP()
 
     res.pillar:deactivate()

@@ -9,7 +9,7 @@ uniform float granularity; // 0.002 is a good value, higher = more pixelly
 
 // -- config --
 const float ROW_SPEED_MULT = 0.1;
-const float GRANULARITY  = 0.002;
+const float GRANULARITY  = 0.001;
 const vec2 TEX_REPEAT_FACTOR = vec2(0.5, 1.0); // < 1 looks smeary, 1-2 looks nice
 
 // --------------------

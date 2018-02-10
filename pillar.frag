@@ -31,6 +31,10 @@ void main()
     uv.x += rowspeed(uv.y) * time;              // move rows
     uv = mod(uv * TEX_REPEAT_FACTOR, 1.0);      // repeat texture
 
+#ifdef INFOBEAMER_PLAT_PI
     vec3 c = texture2D(Texture, uv).rgb;
+#else
+    vec3 c = texture2DLod(Texture, uv, 0);
+#endif
     gl_FragColor = vec4(c, ALPHA);
 }

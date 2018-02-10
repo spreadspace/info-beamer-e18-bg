@@ -19,9 +19,9 @@ float randbase(vec2 n) {
   // TODO: this can be replaced by noise texture lookup for speed on the RPi
   //return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
 #ifdef INFOBEAMER_PLAT_PI
-    return texture2D(Noise, n).rgb;
+    return texture2D(Noise, n).r;
 #else
-    return texture2DLod(Texture, n, 0);
+    return texture2DLod(Texture, n, 0).r;
 #endif
 }
 float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }

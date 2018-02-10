@@ -46,8 +46,19 @@ local function rotate1(a, ...) -- 0.5 = half rotation, 1 = full rotation
 end
 
 local function drawqueru(now)
+    local ox, oy, x, y = 0.012, 0.01, queruPos(now)
+    local s = 1.05
+    -- shadow
     PUSH()
-        gl.translate(queruPos(now))
+        gl.translate(x+ox, y+oy)
+        rotate1(now, 0, 0, 1)
+        gl.scale(s, s, s)
+        gl.translate(QSIZE/-2, QSIZE/-2) -- center rotation point
+        res.shadow:draw(0,0,QSIZE,QSIZE)
+    POP()
+    -- querulant
+    PUSH()
+        gl.translate(x,y)
         rotate1(now, 0, 0, 1)
         gl.translate(QSIZE/-2, QSIZE/-2) -- center rotation point
         res.bgcolor:draw(0,0,QSIZE,QSIZE)

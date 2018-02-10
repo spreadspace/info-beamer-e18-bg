@@ -102,7 +102,7 @@ end
 
 -- test function to try good looking rotation parameters...
 local function lolpillar(now, seed)
-    local params = {time=now, randseed = seed}
+    local params = {time=now, randseed = seed, Noise=res.noise512}
     local s, s2, c = sin(now), sin(now*0.5), cos(now*0.66)
     PUSH()
 --        rotate1(0.1*c, 0, 0, 1)       -- tilt left/right / roll

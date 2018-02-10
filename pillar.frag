@@ -1,5 +1,5 @@
 // automatically supplied by info-beamer
-uniform sampler2D Texture;
+uniform sampler2D Texture, Noise;
 varying vec2 TexCoord;
 uniform vec4 Color;
 
@@ -17,7 +17,12 @@ const float ALPHA = 1.0; // 0.3 is good for debugging
 
 float randbase(vec2 n) {
   // TODO: this can be replaced by noise texture lookup for speed on the RPi
-  return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
+  //return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
+#ifdef INFOBEAMER_PLAT_PI
+    return texture2D(Noise, n).rgb;
+#else
+    return texture2DLod(Texture, n, 0);
+#endif
 }
 float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }
 float rand  (vec2 n) { return randbase(n) * 2.0 - 1.0; }

@@ -5,15 +5,15 @@ uniform vec4 Color;
 
 // custom
 uniform float time;
-uniform float granularity; // 0.002 is a good value, higher = more pixelly
 
 // -- config --
 const float ROW_SPEED_MULT = 10.0;
+const float VERT_SPEED = 0.1;
 const float GRANULARITY  = 0.001;
-const vec2 TEX_REPEAT_FACTOR = vec2(2.0, 2.0); // < 1 looks smeary, 1-2 looks nice
+const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 1.0); // < 1 looks smeary, 1-2 looks nice
 
 // use procedural noise (might be to slow for raspi)
-//#define USE_PROC_NOISE
+#define USE_PROC_NOISE
 
 // --------------------
 
@@ -36,6 +36,7 @@ void main()
 {
     vec2 uv = TexCoord;
     uv.y -= mod(uv.y, GRANULARITY);         // pixellate rows
+    uv.y = mod(uv.y + VERT_SPEED * time, 1.0);
     uv.x += rowspeed(uv.y) * time;              // move rows
     uv = mod(uv * TEX_REPEAT_FACTOR, 1.0);      // repeat texture
 

@@ -131,7 +131,7 @@ local function lolpillar(tex, now, xo, yo, twist)
 end
 
 local function drawpillars(now)
-    res.pillar:use{time=now, randseed = seed, Noise=res.noise512}
+    res.pillar:use{time=now, Noise=res.noise512}
 
     lolpillar(res.noise, now,  -0.45,   0.6,  0.33)
     --lolpillar(res.noise6, now,  0.4,   -0.12,  0.33)

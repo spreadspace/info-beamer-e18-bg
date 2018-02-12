@@ -10,7 +10,7 @@ uniform float time;
 const float ROW_SPEED_MULT = 10.0;
 const float VERT_SPEED = 0.1;
 const float GRANULARITY  = 0.001;
-const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 1.0); // < 1 looks smeary, 1-2 looks nice
+const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 4.2); // < 1 looks smeary, 1-2 looks nice
 
 // use procedural noise (might be to slow for raspi)
 #define USE_PROC_NOISE
@@ -32,11 +32,20 @@ float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }
 float rand  (vec2 n) { return randbase(n) * 2.0 - 1.0; }
 float rowspeed(float y) { return ROW_SPEED_MULT * rand(vec2(0.0, y)); }
 
+vec4 constrand() {
+ #ifdef INFOBEAMER_PLAT_PI
+  return texture2D(Texture, vec2(0.42));
+ #else
+  return texture2DLod(Texture, vec2(0.42), 0);
+ #endif
+}
+float vertspeed(){ return constrand().b - 0.5; }
+
 void main()
 {
     vec2 uv = TexCoord;
-    uv.y -= mod(uv.y, GRANULARITY);         // pixellate rows
-    uv.y = mod(uv.y + VERT_SPEED * time, 1.0);
+    uv.y -= mod(uv.y, GRANULARITY);             // pixellate rows
+    uv.y = mod(uv.y + vertspeed() * time, 1.0); // video hum
     uv.x += rowspeed(uv.y) * time;              // move rows
     uv = mod(uv * TEX_REPEAT_FACTOR, 1.0);      // repeat texture
 

@@ -116,11 +116,11 @@ local function lolpillar(tex, now, xo, yo, twist)
     twist = twist or 0.2
     local onow = now + xo
     local s, s2, c = sin(onow), sin(onow*0.5), cos(onow*0.66)
-    local sslow = sin(now*0.2 + xo*2)
+    local sslow = sin(now*0.2 + xo*5)
     local stw = cos(onow*0.66 + xo*3.3)*0.03 + twist + 0.03*sin(now*0.13 + 5*xo)
     PUSH()
         gl.translate(xo, yo, 0)
-        gl.translate(0, 0.06*sslow + 0.27 + 0.031*chaos((now+(10*yo))*0.4), 0)
+        gl.translate(0, 0.06*sslow + 0.42 + 0.031*chaos((now+(10*yo))*0.4), 0)
         rotate1(-0.05, 0, 0, 1)       -- tilt left/right / roll
         rotate1(0.01*c-0.1, -1, 1, 0) -- tilt to viewer / pitch
         rotate1(stw, 0, 1, 0)  -- twist / yaw
@@ -152,13 +152,13 @@ local function drawpillars(now)
 
     local slownow = 0.3*now
 
-    stripe(res.noise8a, -0.05, -0.25, 0.3, 0, 0.03*sin(slownow))
-    stripe(res.noise8a, -0.05, -0.45, 0.5, 0, 0.03*sin(slownow+0.7))
-    stripe(res.noise8a, -0.05, -0.65, 0.7, 0, 0.03*sin(slownow+1.4))
+    --stripe(res.noise8a, -0.05, -0.25, 0.3, 0, 0.03*sin(slownow))
+    stripe(res.noise8a, -0.05, -0.25, 0.5, 0, 0.03*sin(slownow+0.7))
+    stripe(res.noise8a, -0.05, -0.45, 0.7, 0, 0.03*sin(slownow+1.4))
 
-    stripe(res.noise8a, -0.05, 0.28, 0.3, 0, 0.03*sin(slownow))
-    stripe(res.noise8a, -0.05, 0.48, 0.35, 0, 0.03*sin(slownow+0.7))
-    stripe(res.noise8a, -0.05, 0.68, 0.4, 0, 0.03*sin(slownow+1.4))
+    stripe(res.noise8a, -0.05, 0.18, 0.4, 0, 0.03*sin(slownow))
+    stripe(res.noise8a, -0.05, 0.4, 0.45, 0, 0.03*sin(slownow+0.7))
+    stripe(res.noise8a, -0.05, 0.62, 0.5, 0, 0.03*sin(slownow+1.4))
 
 
     res.pillar:deactivate()

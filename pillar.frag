@@ -1,5 +1,5 @@
 // automatically supplied by info-beamer
-uniform sampler2D Texture, Noise;
+uniform sampler2D Texture;
 varying vec2 TexCoord;
 uniform vec4 Color;
 
@@ -12,21 +12,10 @@ const float VERT_SPEED = 0.1;
 const float GRANULARITY  = 0.001;
 const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 4.2); // < 1 looks smeary, 1-2 looks nice
 
-// use procedural noise (might be to slow for raspi)
-#define USE_PROC_NOISE
-
 // --------------------
 
 float randbase(vec2 n) {
-#ifdef USE_PROC_NOISE
   return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
-#else
- #ifdef INFOBEAMER_PLAT_PI
-  return texture2D(Noise, n).r;
- #else
-  return texture2DLod(Noise, n, 0).r;
- #endif
-#endif
 }
 float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }
 float rand  (vec2 n) { return randbase(n) * 2.0 - 1.0; }

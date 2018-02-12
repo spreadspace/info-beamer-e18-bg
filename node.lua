@@ -23,6 +23,8 @@ local res = util.auto_loader()
 local QSIZE = 0.10
 local QPOSX, QPOSY = 0.4, 0.3   -- querulant base position [(0,0) = center, (1,1) = bottom right corner]
 local QMOVESCALE = 0.20
+local QROTSPEED = 1.0
+
 local PILLAR_TOP_GRANULARITY = 0.03   -- top looks better with larger rows (smaller model scale!)
 local PILLAR_SIDE_GRANULARITY = 0.002 -- sides are better with smaller rows
 
@@ -53,7 +55,7 @@ local function drawqueru(now)
     -- shadow
     PUSH()
         gl.translate(x+ox, y+oy)
-        rotate1(now, 0, 0, 1)
+        rotate1(QROTSPEED *now, 0, 0, 1)
         gl.scale(s, s, s)
         gl.translate(QSIZE/-2, QSIZE/-2) -- center rotation point
         res.shadow:draw(0,0,QSIZE,QSIZE)
@@ -61,7 +63,7 @@ local function drawqueru(now)
     -- querulant
     PUSH()
         gl.translate(x,y)
-        rotate1(now, 0, 0, 1)
+        rotate1(QROTSPEED * now, 0, 0, 1)
         gl.translate(QSIZE/-2, QSIZE/-2) -- center rotation point
         res.bgcolor:draw(0,0,QSIZE,QSIZE)
     POP()

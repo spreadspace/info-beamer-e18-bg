@@ -12,15 +12,20 @@ const float ROW_SPEED_MULT = 0.1;
 const float GRANULARITY  = 0.001;
 const vec2 TEX_REPEAT_FACTOR = vec2(0.5, 1.0); // < 1 looks smeary, 1-2 looks nice
 
+// use procedural noise (might be to slow for raspi)
+#define USE_PROC_NOISE
+
 // --------------------
 
 float randbase(vec2 n) {
-  // TODO: this can be replaced by noise texture lookup for speed on the RPi
-  //return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
-#ifdef INFOBEAMER_PLAT_PI
-    return texture2D(Noise, n).r;
+#ifdef USE_PROC_NOISE
+  return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
 #else
-    return texture2DLod(Noise, n, 0).r;
+ #ifdef INFOBEAMER_PLAT_PI
+  return texture2D(Noise, n).r;
+ #else
+  return texture2DLod(Noise, n, 0).r;
+ #endif
 #endif
 }
 float rand01(vec2 n) { return 0.5 + 0.5 * randbase(n); }

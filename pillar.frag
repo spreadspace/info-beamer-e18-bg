@@ -7,10 +7,10 @@ uniform vec4 Color;
 uniform float time;
 
 // -- config --
-const float ROW_SPEED_MULT = 10.0;
-const float VERT_SPEED = 0.1;
+const float ROW_SPEED_MULT = 4.2;
+const float VERT_SPEED = 0.23;
 const float GRANULARITY  = 0.001;
-const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 4.2); // < 1 looks smeary, 1-2 looks nice
+const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 4.7); // < 1 looks smeary, 1-2 looks nice
 
 // --------------------
 
@@ -28,7 +28,7 @@ vec4 constrand() {
   return texture2DLod(Texture, vec2(0.42), 0);
  #endif
 }
-float vertspeed(){ return constrand().b - 0.5; }
+float vertspeed(){ return (constrand().b - 0.5) * VERT_SPEED; }
 
 void main()
 {

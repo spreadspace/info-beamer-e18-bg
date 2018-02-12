@@ -13,7 +13,7 @@ const float GRANULARITY  = 0.001;
 const vec2 TEX_REPEAT_FACTOR = vec2(2.0, 2.0); // < 1 looks smeary, 1-2 looks nice
 
 // use procedural noise (might be to slow for raspi)
-#define USE_PROC_NOISE
+//#define USE_PROC_NOISE
 
 // --------------------
 

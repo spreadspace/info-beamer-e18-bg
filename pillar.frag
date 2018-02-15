@@ -9,7 +9,7 @@ uniform float time;
 // -- config --
 const float ROW_SPEED_MULT = 4.2;
 const float VERT_SPEED_MULT = 0.12;
-const float GRANULARITY  = 0.001;
+const float GRANULARITY  = 0.002;
 const vec2 TEX_REPEAT_FACTOR = vec2(1.0, 2.3); // < 1 looks smeary, 1-2 looks nice
 const vec2 TEX_RANDOM_SAMPLE = vec2(0.47);
 

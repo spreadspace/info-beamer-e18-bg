@@ -12,7 +12,5 @@ fancy.res = res
 gl.setup(NATIVE_WIDTH, NATIVE_HEIGHT)
 
 function node.render()
-    res.fancy_bgcolor:draw(0, 0, WIDTH, HEIGHT)
-    
-    fancy.render("fancy")
+    fancy.render("minimal")
 end

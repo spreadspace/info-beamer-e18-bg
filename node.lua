@@ -12,5 +12,5 @@ fancy.res = res
 gl.setup(NATIVE_WIDTH, NATIVE_HEIGHT)
 
 function node.render()
-    fancy.render("minimal")
+    fancy.render("fancy")
 end
